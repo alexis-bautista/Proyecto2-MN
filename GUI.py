@@ -9,13 +9,12 @@ from datetime import datetime, timedelta
 from panel import panel
 from simulacion import simulacion
 
-# Colores más visibles y agradables
 colores = {
     "fondo": "#f0f4f8",
     "principal": "#4caf50",
     "secundario": "#c8e6c9",
     "texto": "#212121",
-    "boton_texto": "#000000",  # Cambiar el color del texto del botón a negro
+    "boton_texto": "#000000",
 }
 
 
@@ -50,35 +49,50 @@ class SeguidorSolarApp:
         )
         estilo.map("TButton", background=[("active", "#005f99")])
 
+        # Apply styles to specific widgets
+        estilo.configure(
+            "Custom.TLabel", background=colores["fondo"], foreground=colores["texto"]
+        )
+        estilo.configure(
+            "Custom.TButton",
+            background=colores["principal"],
+            foreground=colores["boton_texto"],
+        )
+
     def crear_widgets_principal(self):
-        frame = ttk.Frame(self.root, padding=20)
+        frame = ttk.Frame(self.root, padding=20, style="TFrame")
         frame.grid(row=0, column=0, sticky="nsew")
 
-        # Label del titulo de la aplicacion
         ttk.Label(
             frame,
             text="SEGUIDOR SOLAR - Proyecto de Metodos Numericos",
             font=("Helvetica", 16, "bold"),
+            style="Custom.TLabel",
         ).grid(row=0, column=0, columnspan=2, pady=10, sticky="ew")
 
-        ttk.Label(frame, text="Fecha (DD/MM/AAAA):").grid(
+        ttk.Label(frame, text="Fecha (DD/MM/AAAA):", style="Custom.TLabel").grid(
             row=1, column=0, sticky="e", pady=5
         )
         self.fecha = DateEntry(frame, font=("Helvetica", 10), date_pattern="dd/MM/yyyy")
         self.fecha.grid(row=1, column=1, pady=5, padx=10)
 
-        ttk.Label(frame, text="Hora (HH:MM):").grid(row=2, column=0, sticky="e", pady=5)
+        ttk.Label(frame, text="Hora (HH:MM):", style="Custom.TLabel").grid(
+            row=2, column=0, sticky="e", pady=5
+        )
         self.hora = ttk.Entry(frame, font=("Helvetica", 10))
         self.hora.grid(row=2, column=1, pady=5, padx=10)
 
-        ttk.Label(frame, text="Duración (horas):").grid(
+        ttk.Label(frame, text="Duración (horas):", style="Custom.TLabel").grid(
             row=3, column=0, sticky="e", pady=5
         )
         self.duracion = ttk.Spinbox(frame, from_=1, to=24, font=("Helvetica", 10))
         self.duracion.grid(row=3, column=1, pady=5, padx=10)
 
         ttk.Button(
-            frame, text="Iniciar Simulación", command=self.mostrar_simulacion
+            frame,
+            text="Iniciar Simulación",
+            command=self.mostrar_simulacion,
+            style="Custom.TButton",
         ).grid(row=4, column=0, columnspan=2, pady=20)
 
     def mostrar_simulacion(self):
@@ -99,7 +113,10 @@ class SeguidorSolarApp:
             return
 
         if not self.validar_hora_sol(hora):
-            messagebox.showinfo("Información", "El sol no es visible a estas horas.")
+            messagebox.showinfo(
+                "Información",
+                "El sol no es visible a estas horas. Intente en un rango de 6:00 a 18:00.",
+            )
             return
 
         pitch, roll = panel.calcular_posicion(fecha_str, hora_str)
