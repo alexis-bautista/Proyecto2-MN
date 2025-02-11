@@ -1,0 +1,7 @@
+tkinter
+matplotlib
+numpy
+pysolar
+pytz
+tkcalendar
+datetime
