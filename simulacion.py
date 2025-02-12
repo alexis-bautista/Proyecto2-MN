@@ -125,16 +125,6 @@ class simulacion:
                     label="Trayectoria del Sol",
                 )
 
-            # Graficar la trayectoria del panel
-            if len(panel_positions) > 1:
-                for i in range(len(panel_positions) - 1):
-                    ax.plot(
-                        panel_positions[i][0],
-                        panel_positions[i][1],
-                        panel_positions[i][2],
-                        color="black",
-                        alpha=0.5,
-                    )
 
             # Etiquetas y título
             ax.set_xlabel("Norte")

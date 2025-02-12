@@ -97,7 +97,7 @@ class SeguidorSolarApp:
         ttk.Label(frame, text="Duración (horas):", style="Custom.TLabel").grid(
             row=3, column=0, sticky="e", pady=5
         )
-        self.duracion = ttk.Spinbox(frame, from_=1, to=24, font=("Helvetica", 10))
+        self.duracion = ttk.Spinbox(frame, from_=1, to=12, font=("Helvetica", 10), state='readonly')
         self.duracion.grid(row=3, column=1, pady=5, padx=10)
 
         ttk.Button(
