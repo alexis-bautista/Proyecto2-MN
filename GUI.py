@@ -130,7 +130,7 @@ class SeguidorSolarApp:
             )
             duracion = duracion_real
 
-        simulacion.plotSolarPath(fecha_str, hora_str)
+        simulacion.plotSolarPath(fecha_str, hora_str, duracion)
 
     def validar_hora_sol(self, hora):
         return 6 <= hora.hour <= 18
