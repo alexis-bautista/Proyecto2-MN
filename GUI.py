@@ -4,7 +4,7 @@ from tkcalendar import DateEntry
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from datetime import datetime, timedelta
-from PIL import Image, ImageTk  # Importar PIL para manejar imágenes
+from PIL import Image, ImageTk
 
 # from sol import sol
 from panel import panel
