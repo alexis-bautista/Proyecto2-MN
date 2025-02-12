@@ -4,17 +4,18 @@ from tkcalendar import DateEntry
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from datetime import datetime, timedelta
+from PIL import Image, ImageTk  # Importar PIL para manejar imágenes
 
 # from sol import sol
 from panel import panel
 from simulacion import simulacion
 
 colores = {
-    "fondo": "#f0f4f8",
-    "principal": "#4caf50",
-    "secundario": "#c8e6c9",
-    "texto": "#212121",
-    "boton_texto": "#000000",
+    "fondo": "#e6f7ff",
+    "principal": "#003366",
+    "texto": "#003366",
+    "boton_texto": "white",
+    "activo": "#00509e",
 }
 
 
@@ -39,6 +40,7 @@ class SeguidorSolarApp:
         Crea y configura los estilos para los widgets de la aplicación.
         """
         estilo = ttk.Style()
+        estilo.theme_use("default")
         estilo.configure(
             "TFrame",
             background=colores["fondo"],
@@ -47,18 +49,17 @@ class SeguidorSolarApp:
             "TLabel",
             background=colores["fondo"],
             foreground=colores["texto"],
-            font=("Helvetica", 11),
+            font=("Arial", 12),
         )
         estilo.configure(
             "TButton",
             background=colores["principal"],
             foreground=colores["boton_texto"],
-            font=("Helvetica", 10, "bold"),
+            font=("Arial", 10, "bold"),
             padding=6,
         )
-        estilo.map("TButton", background=[("active", "#005f99")])
+        estilo.map("TButton", background=[("active", colores["activo"])])
 
-        # Apply styles to specific widgets
         estilo.configure(
             "Custom.TLabel", background=colores["fondo"], foreground=colores["texto"]
         )
@@ -73,39 +74,62 @@ class SeguidorSolarApp:
         Crea y coloca los widgets en la ventana principal de la aplicación.
         """
         frame = ttk.Frame(self.root, padding=20, style="TFrame")
-        frame.grid(row=0, column=0, sticky="nsew")
+        frame.place(relx=0.5, rely=0.5, anchor="center")
 
         ttk.Label(
             frame,
-            text="SEGUIDOR SOLAR - Proyecto de Metodos Numericos",
-            font=("Helvetica", 16, "bold"),
+            text="SEGUIDOR SOLAR - Proyecto de Métodos Númericos",
+            font=("Arial", 16, "bold"),
             style="Custom.TLabel",
         ).grid(row=0, column=0, columnspan=2, pady=10, sticky="ew")
 
-        ttk.Label(frame, text="Fecha (DD/MM/AAAA):", style="Custom.TLabel").grid(
-            row=1, column=0, sticky="e", pady=5
-        )
-        self.fecha = DateEntry(frame, font=("Helvetica", 10), date_pattern="dd/MM/yyyy")
-        self.fecha.grid(row=1, column=1, pady=5, padx=10)
+        # Cargar y mostrar la imagen
+        try:
+            img = Image.open("ADJUNTOS/PortadaSeguidor.jpeg")
+            img = img.resize((200, 200))
+            img_tk = ImageTk.PhotoImage(img)
 
-        ttk.Label(frame, text="Hora (HH:MM):", style="Custom.TLabel").grid(
+            img_label = tk.Label(frame, image=img_tk, bg=colores["fondo"])
+            img_label.image = (
+                img_tk  # Mantener referencia para evitar recolección de basura
+            )
+            img_label.grid(row=1, column=0, columnspan=2, pady=10)
+        except Exception as e:
+            messagebox.showerror("Error", f"No se pudo cargar la imagen: {e}")
+
+        ttk.Label(frame, text="Fecha (DD/MM/AAAA):", style="Custom.TLabel").grid(
             row=2, column=0, sticky="e", pady=5
         )
-        self.hora = ttk.Entry(frame, font=("Helvetica", 10))
-        self.hora.grid(row=2, column=1, pady=5, padx=10)
+        self.fecha = DateEntry(frame, font=("Arial", 10), date_pattern="dd/MM/yyyy")
+        self.fecha.grid(row=2, column=1, pady=5, padx=10)
 
-        ttk.Label(frame, text="Duración (horas):", style="Custom.TLabel").grid(
+        ttk.Label(frame, text="Hora (HH:MM):", style="Custom.TLabel").grid(
             row=3, column=0, sticky="e", pady=5
         )
-        self.duracion = ttk.Spinbox(frame, from_=1, to=12, font=("Helvetica", 10), state='readonly')
-        self.duracion.grid(row=3, column=1, pady=5, padx=10)
+        self.hora = ttk.Entry(frame, font=("Arial", 10))
+        self.hora.grid(row=3, column=1, pady=5, padx=10)
+
+        ttk.Label(frame, text="Duración (horas):", style="Custom.TLabel").grid(
+            row=4, column=0, sticky="e", pady=5
+        )
+        self.duracion = ttk.Spinbox(
+            frame, from_=1, to=12, font=("Arial", 10), state="readonly"
+        )
+        self.duracion.grid(row=4, column=1, pady=5, padx=10)
 
         ttk.Button(
             frame,
             text="Iniciar Simulación",
             command=self.mostrar_simulacion,
             style="Custom.TButton",
-        ).grid(row=4, column=0, columnspan=2, pady=20)
+        ).grid(row=5, column=0, columnspan=2, pady=20)
+
+        # Integrantes
+        integrantes = "By: Alexis Bautista, David Egas, Aubertin Ochoa, Erick Romero"
+        label_integrante = ttk.Label(
+            self.root, text=f"{integrantes}", style="Custom.TLabel"
+        )
+        label_integrante.place(x=790, y=590, anchor="se")
 
     def mostrar_simulacion(self):
         """
