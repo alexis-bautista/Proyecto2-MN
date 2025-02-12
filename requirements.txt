@@ -1,7 +1,5 @@
-tkinter
-matplotlib
-numpy
-pysolar
-pytz
-tkcalendar
-datetime
+matplotlib==3.9.0
+numpy==1.26.4
+pysolar==0.13
+pytz==2024.1
+tkcalendar==1.6.1
