@@ -29,7 +29,7 @@ class simulacion:
         panel_positions = []
 
         def update(frame):
-             """
+            """
             Actualiza la gráfica de cada fotograma de la animación.
 
             Parametros:
