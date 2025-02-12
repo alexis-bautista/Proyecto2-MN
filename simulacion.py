@@ -76,9 +76,9 @@ class simulacion:
 
             roll_matrix = np.array(
                 [
-                    [np.cos(roll), 0, np.sin(roll)],
+                    [np.cos(np.radians(roll)), 0, np.sin(np.radians(roll))],
                     [0, 1, 0],
-                    [-np.sin(roll), 0, np.cos(roll)],
+                    [-np.sin(np.radians(roll)), 0, np.cos(np.radians(roll))],
                 ]
             )
 
@@ -87,14 +87,19 @@ class simulacion:
             # Coordenadas del panel en su sistema de referencia local
             panel_x = np.array(
                 [
-                    -panel_length / 2,
-                    panel_length / 2,
-                    panel_length / 2,
-                    -panel_length / 2,
+                    -panel_width / 2,
+                    panel_width / 2,
+                    panel_width / 2,
+                    -panel_width / 2,
                 ]
             )
             panel_y = np.array(
-                [-panel_width / 2, -panel_width / 2, panel_width / 2, panel_width / 2]
+                [
+                    -panel_length / 2,
+                    -panel_length / 2,
+                    panel_length / 2,
+                    panel_length / 2,
+                ]
             )
             panel_z = np.zeros(4)
 
@@ -125,6 +130,10 @@ class simulacion:
                     label="Trayectoria del Sol",
                 )
 
+            # Ajustar los límites del gráfico para que se mueva dinámicamente
+            ax.set_xlim([-1, 1])
+            ax.set_ylim([-1, 1])
+            ax.set_zlim([0, 1])
 
             # Etiquetas y título
             ax.set_xlabel("Norte")
@@ -136,6 +145,6 @@ class simulacion:
             ax.legend()
 
         ani = animation.FuncAnimation(
-            fig, update, frames=range(duracion * 2 + 1), repeat=False
+            fig, update, frames=range(duracion * 2 + 1), repeat=False, interval=1000
         )
         plt.show()

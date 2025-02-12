@@ -20,11 +20,13 @@ class panel:
         tuple: Pitch y roll del panel en grados.
         """
         az, el = sol.getSolarPosition(fecha_str, hora_str, latitude, longitude)
-        print(f"Azimutal: {az}, Elevacion: {el}")
+        # print(f"Azimutal: {az}, Elevacion: {el}")
 
         roll = np.arcsin(np.sin(az) * np.cos(el))
 
         pitch = np.arcsin(-((np.cos(az) * np.cos(el)) / np.cos(roll)))
         pitch_deg = np.degrees(pitch)
+
+        print(f"Pitch: {pitch_deg}, Roll: {roll}")
 
         return pitch_deg, roll
