@@ -12,6 +12,16 @@ class simulacion:
     def plotSolarPath(
         fecha_str, hora_str, duracion, latitude=-0.2105367, longitude=-78.491614
     ):
+        """
+        Traza la trayectoria solar y la posición de un panel solar durante un período de tiempo especificado.
+
+        Parametros:
+        fecha_str (str): Fecha en formato 'dd/mm/yyyy'.
+        hora_str (str): Hora de inicio en formato 'HH:MM'.
+        duracion (int): Duración en horas de la simulación.
+        latitude (float): El valor predeterminado es -0.2105367.
+        longitude (float): Longitud de la ubicación. El valor predeterminado es -78.491614.
+        """
         fig = plt.figure()
         ax = fig.add_subplot(111, projection="3d")
 
@@ -19,6 +29,12 @@ class simulacion:
         panel_positions = []
 
         def update(frame):
+             """
+            Actualiza la gráfica de cada fotograma de la animación.
+
+            Parametros:
+            frame (int): El número de fotograma actual.
+            """
             ax.clear()
             current_time = datetime.strptime(
                 f"{fecha_str} {hora_str}", "%d/%m/%Y %H:%M"

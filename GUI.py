@@ -20,6 +20,12 @@ colores = {
 
 class SeguidorSolarApp:
     def __init__(self, root):
+        """
+        Inicializa la aplicación de la GUI del seguidor solar.
+
+        Parametros:
+        root (tk.Tk): La ventana principal de la aplicación.
+        """
         self.root = root
         self.root.title("SEGUIDOR SOLAR")
         self.root.configure(bg=colores["fondo"])
@@ -29,6 +35,9 @@ class SeguidorSolarApp:
         self.crear_widgets_principal()
 
     def crear_estilos(self):
+        """
+        Crea y configura los estilos para los widgets de la aplicación.
+        """
         estilo = ttk.Style()
         estilo.configure(
             "TFrame",
@@ -60,6 +69,9 @@ class SeguidorSolarApp:
         )
 
     def crear_widgets_principal(self):
+        """
+        Crea y coloca los widgets en la ventana principal de la aplicación.
+        """
         frame = ttk.Frame(self.root, padding=20, style="TFrame")
         frame.grid(row=0, column=0, sticky="nsew")
 
@@ -96,6 +108,9 @@ class SeguidorSolarApp:
         ).grid(row=4, column=0, columnspan=2, pady=20)
 
     def mostrar_simulacion(self):
+        """
+        Obtiene los datos ingresados por el usuario y muestra la simulación de la trayectoria solar.
+        """
         fecha_str = self.fecha.get()
         hora_str = self.hora.get()
         duracion = self.duracion.get()
@@ -133,9 +148,29 @@ class SeguidorSolarApp:
         simulacion.plotSolarPath(fecha_str, hora_str, duracion)
 
     def validar_hora_sol(self, hora):
+        """
+        Valida si la hora ingresada está dentro del rango visible del sol.
+
+        Parametros:
+        hora (datetime.time): La hora a validar.
+
+        Retorna:
+        bool: True si la hora está entre las 6:00 y las 18:00, False en caso contrario.
+        """
         return 6 <= hora.hour <= 18
 
     def calcular_duracion_real(self, fecha, hora, duracion):
+        """
+        Calcula la duración real de la simulación basada en la visibilidad del sol.
+
+        Parametros:
+        fecha (datetime.date): La fecha de la simulación.
+        hora (datetime.time): La hora de inicio de la simulación.
+        duracion (int): La duración solicitada de la simulación en horas.
+
+        Retorna:
+        int: La duración real de la simulación en horas.
+        """
         hora_fin = datetime.combine(fecha, hora) + timedelta(hours=duracion)
         if hora_fin.time().hour > 18:
             return 18 - hora.hour
