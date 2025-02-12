@@ -41,3 +41,47 @@ Antes de ejecutar el programa, asegúrate de instalar todas las dependencias nec
 `pip install -r requirements.txt`
 
 ### ▶️ Ejecutar la simulación
+🔹 Desde la terminal
+Para iniciar la interfaz gráfica (GUI) del seguidor solar, ejecuta el siguiente comando en la terminal:
+`python GUI.py`
+
+🔹 Desde VS Code
+Si prefieres ejecutar el programa desde Visual Studio Code, sigue estos pasos:
+
+1. Abrir el proyecto en VS Code:
+    
+    Desde VS Code, ve a Archivo > Abrir carpeta... y selecciona la carpeta del proyecto.
+
+2. Abrir GUI.py
+
+    En el Explorador de Archivos de VS Code, busca y abre GUI.py.
+
+3. Ejecutar el programa
+
+    - Haz clic en el botón ▶️ "Run" en la parte superior derecha.
+
+    - O presiona F5 si tienes configurado Python como depurador.
+
+Esto abrirá la interfaz gráfica del seguidor solar directamente desde VS Code.
+
+
+## 🛠️ Tecnologías utilizadas
+
+**Lenguaje:** Python
+
+**Interfaz gráfica:** Tkinter
+
+**Bibliotecas:**
+
+- matplotlib – Visualización de gráficos
+- numpy – Cálculos numéricos
+- pysolar – Cálculo de posición solar
+- pytz – Manejo de zonas horarias
+- tkcalendar – Selector de fechas en la interfaz gráfica
+- datetime – Manejo de fechas y horas
+
+## 👥 Integrantes
+- ALEXIS BAUTISTA
+- DAVID EGAS
+- AUBERTIN OCHOA
+- ERICK ROMERO
